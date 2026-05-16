@@ -131,4 +131,4 @@ export const { ApiProvider, useApi } = createApiContext(apiClient)
 
 ## License
 
-UNLICENSED — internal to Hollis Labs.
+MIT — see [LICENSE](./LICENSE).

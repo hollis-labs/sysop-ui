@@ -2,7 +2,7 @@
   "name": "@hollis-labs/sysop-ui",
   "version": "0.1.0",
   "description": "Sysop UI — the System Operations React kit + canonical [data-theme] palette for Hollis Labs apps.",
-  "license": "UNLICENSED",
+  "license": "MIT",
   "private": false,
   "type": "module",
   "sideEffects": [
