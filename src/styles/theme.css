@@ -1,0 +1,396 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/*
+ * Sysop UI — canonical theme.
+ *
+ * This is the single styling lineage every Hollis Labs app converges to. The
+ * hand-rolled "HUD" CSS in older apps is retired in favour of this file.
+ *
+ * Theme variable convention:
+ * - Palette selectors (`:root`, `[data-theme="..."]`) own the concrete values.
+ * - Shared semantic tokens keep the same shape across palettes:
+ *   --theme-color-bg, --theme-color-panel, --theme-color-text, --theme-color-accent,
+ *   --theme-color-danger, --theme-color-status-*
+ * - `@theme inline` maps those selector-scoped vars into Tailwind/shadcn tokens.
+ *
+ * Consume from an app:
+ *   @import "@hollis-labs/sysop-ui/theme.css";
+ */
+
+:root {
+  /* Fallback to the default p4-white palette to avoid first-paint flashes. */
+  --theme-color-bg: rgb(9 9 11);
+  --theme-color-panel: rgb(9 9 11);
+  --theme-color-panel-2: rgb(24 24 27);
+  --theme-color-panel-overlay: rgb(20 20 22);
+  --theme-color-panel-overlay-strong: rgb(21 21 24);
+  --theme-color-panel-hover: rgb(24 24 27);
+  --theme-color-panel-hover-soft: rgb(15 15 17);
+  --theme-color-border: rgb(39 39 42);
+  --theme-color-border-soft: rgb(39 39 42 / 70%);
+  --theme-color-border-strong: rgb(39 39 42 / 80%);
+  --theme-color-text: rgb(244 244 245);
+  --theme-color-text-muted: rgb(212 212 216);
+  --theme-color-text-soft: rgb(161 161 170);
+  --theme-color-text-subtle: rgb(113 113 122);
+  --theme-color-accent: rgb(228 228 231);
+  --theme-color-accent-foreground: rgb(9 9 11);
+  --theme-color-danger: rgb(251 113 133);
+  --theme-color-danger-soft: rgb(253 164 175 / 80%);
+  --theme-color-warning: rgb(245 158 11);
+  --theme-color-ring: rgb(63 63 70 / 60%);
+  --theme-color-ring-soft: rgb(63 63 70 / 50%);
+  --theme-color-overlay: rgb(0 0 0 / 70%);
+  --theme-color-shadow: rgb(0 0 0 / 10%);
+  --theme-color-shadow-strong: rgb(0 0 0 / 20%);
+  --theme-color-status-backlog: rgb(148 163 184);
+  --theme-color-status-todo: rgb(161 161 170);
+  --theme-color-status-queued: rgb(251 191 36);
+  --theme-color-status-doing: rgb(96 165 250);
+  --theme-color-status-review: rgb(167 139 250);
+  --theme-color-status-done: rgb(52 211 153);
+  --theme-color-status-blocked: rgb(248 113 113);
+  --theme-color-status-paused: rgb(250 204 21);
+  --theme-color-status-archived: rgb(82 82 91);
+  --theme-color-status-inbox: rgb(251 191 36);
+  --theme-color-status-routed: rgb(96 165 250);
+  --theme-color-status-indexed: rgb(52 211 153);
+}
+
+[data-theme="p4-white"] {
+  --theme-color-bg: rgb(9 9 11);
+  --theme-color-panel: rgb(9 9 11);
+  --theme-color-panel-2: rgb(24 24 27);
+  --theme-color-panel-overlay: rgb(20 20 22);
+  --theme-color-panel-overlay-strong: rgb(21 21 24);
+  --theme-color-panel-hover: rgb(24 24 27);
+  --theme-color-panel-hover-soft: rgb(15 15 17);
+  --theme-color-border: rgb(39 39 42);
+  --theme-color-border-soft: rgb(39 39 42 / 70%);
+  --theme-color-border-strong: rgb(39 39 42 / 80%);
+  --theme-color-text: rgb(244 244 245);
+  --theme-color-text-muted: rgb(212 212 216);
+  --theme-color-text-soft: rgb(161 161 170);
+  --theme-color-text-subtle: rgb(113 113 122);
+  --theme-color-accent: rgb(228 228 231);
+  --theme-color-accent-foreground: rgb(9 9 11);
+  --theme-color-danger: rgb(251 113 133);
+  --theme-color-danger-soft: rgb(253 164 175 / 80%);
+  --theme-color-warning: rgb(245 158 11);
+  --theme-color-ring: rgb(63 63 70 / 60%);
+  --theme-color-ring-soft: rgb(63 63 70 / 50%);
+  --theme-color-overlay: rgb(0 0 0 / 70%);
+  --theme-color-shadow: rgb(0 0 0 / 10%);
+  --theme-color-shadow-strong: rgb(0 0 0 / 20%);
+  --theme-color-status-backlog: rgb(148 163 184);
+  --theme-color-status-todo: rgb(161 161 170);
+  --theme-color-status-queued: rgb(251 191 36);
+  --theme-color-status-doing: rgb(96 165 250);
+  --theme-color-status-review: rgb(167 139 250);
+  --theme-color-status-done: rgb(52 211 153);
+  --theme-color-status-blocked: rgb(248 113 113);
+  --theme-color-status-paused: rgb(250 204 21);
+  --theme-color-status-archived: rgb(82 82 91);
+  --theme-color-status-inbox: rgb(251 191 36);
+  --theme-color-status-routed: rgb(96 165 250);
+  --theme-color-status-indexed: rgb(52 211 153);
+}
+
+[data-theme="p1-green-phosphor"] {
+  --theme-color-bg: rgb(10 10 10);
+  --theme-color-panel: rgb(15 20 16);
+  --theme-color-panel-2: rgb(18 26 20);
+  --theme-color-panel-overlay: rgb(17 24 18);
+  --theme-color-panel-overlay-strong: rgb(20 30 22);
+  --theme-color-panel-hover: rgb(22 34 25);
+  --theme-color-panel-hover-soft: rgb(19 28 21);
+  --theme-color-border: rgb(38 74 47);
+  --theme-color-border-soft: rgb(64 108 75 / 60%);
+  --theme-color-border-strong: rgb(82 153 101 / 70%);
+  --theme-color-text: rgb(0 255 102);
+  --theme-color-text-muted: rgb(102 255 170);
+  --theme-color-text-soft: rgb(93 214 138);
+  --theme-color-text-subtle: rgb(58 140 92);
+  --theme-color-accent: rgb(102 255 170);
+  --theme-color-accent-foreground: rgb(10 10 10);
+  --theme-color-danger: rgb(255 184 77);
+  --theme-color-danger-soft: rgb(255 184 77 / 82%);
+  --theme-color-warning: rgb(255 212 102);
+  --theme-color-ring: rgb(102 255 170 / 58%);
+  --theme-color-ring-soft: rgb(102 255 170 / 42%);
+  --theme-color-overlay: rgb(0 0 0 / 78%);
+  --theme-color-shadow: rgb(0 0 0 / 28%);
+  --theme-color-shadow-strong: rgb(0 0 0 / 48%);
+  --theme-color-status-backlog: rgb(84 120 98);
+  --theme-color-status-todo: rgb(102 153 119);
+  --theme-color-status-queued: rgb(51 255 136);
+  --theme-color-status-doing: rgb(0 204 85);
+  --theme-color-status-review: rgb(102 255 170);
+  --theme-color-status-done: rgb(102 255 170);
+  --theme-color-status-blocked: rgb(255 184 77);
+  --theme-color-status-paused: rgb(255 212 102);
+  --theme-color-status-archived: rgb(49 78 60);
+  --theme-color-status-inbox: rgb(51 255 136);
+  --theme-color-status-routed: rgb(0 204 85);
+  --theme-color-status-indexed: rgb(0 136 51);
+}
+
+[data-theme="p3-amber-phosphor"] {
+  --theme-color-bg: rgb(10 10 10);
+  --theme-color-panel: rgb(20 16 10);
+  --theme-color-panel-2: rgb(28 22 14);
+  --theme-color-panel-overlay: rgb(24 19 12);
+  --theme-color-panel-overlay-strong: rgb(31 24 15);
+  --theme-color-panel-hover: rgb(36 28 17);
+  --theme-color-panel-hover-soft: rgb(24 19 12);
+  --theme-color-border: rgb(86 65 26);
+  --theme-color-border-soft: rgb(110 84 36 / 62%);
+  --theme-color-border-strong: rgb(160 122 52 / 74%);
+  --theme-color-text: rgb(255 176 0);
+  --theme-color-text-muted: rgb(255 208 96);
+  --theme-color-text-soft: rgb(232 172 72);
+  --theme-color-text-subtle: rgb(153 112 36);
+  --theme-color-accent: rgb(255 208 96);
+  --theme-color-accent-foreground: rgb(10 10 10);
+  --theme-color-danger: rgb(255 110 78);
+  --theme-color-danger-soft: rgb(255 110 78 / 84%);
+  --theme-color-warning: rgb(255 208 96);
+  --theme-color-ring: rgb(255 208 96 / 56%);
+  --theme-color-ring-soft: rgb(255 208 96 / 40%);
+  --theme-color-overlay: rgb(0 0 0 / 78%);
+  --theme-color-shadow: rgb(0 0 0 / 28%);
+  --theme-color-shadow-strong: rgb(0 0 0 / 48%);
+  --theme-color-status-backlog: rgb(133 110 74);
+  --theme-color-status-todo: rgb(173 132 58);
+  --theme-color-status-queued: rgb(255 208 96);
+  --theme-color-status-doing: rgb(255 176 0);
+  --theme-color-status-review: rgb(255 228 163);
+  --theme-color-status-done: rgb(255 208 96);
+  --theme-color-status-blocked: rgb(255 110 78);
+  --theme-color-status-paused: rgb(255 236 163);
+  --theme-color-status-archived: rgb(92 74 47);
+  --theme-color-status-inbox: rgb(255 208 96);
+  --theme-color-status-routed: rgb(255 176 0);
+  --theme-color-status-indexed: rgb(96 165 250);
+}
+
+[data-theme="hi-contrast"] {
+  --theme-color-bg: rgb(0 0 0);
+  --theme-color-panel: rgb(10 10 10);
+  --theme-color-panel-2: rgb(18 18 18);
+  --theme-color-panel-overlay: rgb(6 6 6);
+  --theme-color-panel-overlay-strong: rgb(20 20 20);
+  --theme-color-panel-hover: rgb(24 24 24);
+  --theme-color-panel-hover-soft: rgb(16 16 16);
+  --theme-color-border: rgb(255 255 255);
+  --theme-color-border-soft: rgb(255 255 255 / 72%);
+  --theme-color-border-strong: rgb(255 255 255 / 88%);
+  --theme-color-text: rgb(255 255 255);
+  --theme-color-text-muted: rgb(255 255 255);
+  --theme-color-text-soft: rgb(235 235 235);
+  --theme-color-text-subtle: rgb(208 208 208);
+  --theme-color-accent: rgb(255 255 0);
+  --theme-color-accent-foreground: rgb(0 0 0);
+  --theme-color-danger: rgb(255 59 48);
+  --theme-color-danger-soft: rgb(255 59 48 / 90%);
+  --theme-color-warning: rgb(255 255 0);
+  --theme-color-ring: rgb(255 255 0 / 84%);
+  --theme-color-ring-soft: rgb(255 255 255 / 68%);
+  --theme-color-overlay: rgb(0 0 0 / 88%);
+  --theme-color-shadow: rgb(0 0 0 / 36%);
+  --theme-color-shadow-strong: rgb(0 0 0 / 60%);
+  --theme-color-status-backlog: rgb(255 255 255);
+  --theme-color-status-todo: rgb(208 208 208);
+  --theme-color-status-queued: rgb(255 255 0);
+  --theme-color-status-doing: rgb(0 255 255);
+  --theme-color-status-review: rgb(255 0 255);
+  --theme-color-status-done: rgb(0 255 0);
+  --theme-color-status-blocked: rgb(255 59 48);
+  --theme-color-status-paused: rgb(255 255 0);
+  --theme-color-status-archived: rgb(160 160 160);
+  --theme-color-status-inbox: rgb(255 255 0);
+  --theme-color-status-routed: rgb(0 255 255);
+  --theme-color-status-indexed: rgb(0 255 0);
+}
+
+@theme inline {
+  /* System font — no Geist */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-heading: var(--font-sans);
+
+  /* Semantic tokens */
+  --color-bg: var(--theme-color-bg);
+  --color-panel: var(--theme-color-panel);
+  --color-panel-2: var(--theme-color-panel-2);
+  --color-panel-overlay: var(--theme-color-panel-overlay);
+  --color-panel-overlay-strong: var(--theme-color-panel-overlay-strong);
+  --color-panel-hover: var(--theme-color-panel-hover);
+  --color-panel-hover-soft: var(--theme-color-panel-hover-soft);
+  --color-border-soft: var(--theme-color-border-soft);
+  --color-border-strong: var(--theme-color-border-strong);
+  --color-text: var(--theme-color-text);
+  --color-text-muted: var(--theme-color-text-muted);
+  --color-text-soft: var(--theme-color-text-soft);
+  --color-text-subtle: var(--theme-color-text-subtle);
+  --color-danger-soft: var(--theme-color-danger-soft);
+  --color-warning: var(--theme-color-warning);
+  --color-overlay: var(--theme-color-overlay);
+  --color-shadow: var(--theme-color-shadow);
+  --color-shadow-strong: var(--theme-color-shadow-strong);
+
+  /* shadcn variable mappings */
+  --color-background: var(--theme-color-bg);
+  --color-foreground: var(--theme-color-text);
+  --color-card: var(--theme-color-panel-2);
+  --color-card-foreground: var(--theme-color-text);
+  --color-popover: var(--theme-color-panel-2);
+  --color-popover-foreground: var(--theme-color-text);
+  --color-primary: var(--theme-color-accent);
+  --color-primary-foreground: var(--theme-color-accent-foreground);
+  --color-secondary: var(--theme-color-panel-2);
+  --color-secondary-foreground: var(--theme-color-text);
+  --color-muted: var(--theme-color-panel-2);
+  --color-muted-foreground: var(--theme-color-text-subtle);
+  --color-accent: var(--theme-color-panel-2);
+  --color-accent-foreground: var(--theme-color-text);
+  --color-destructive: var(--theme-color-danger);
+  --color-border: var(--theme-color-border);
+  --color-input: var(--theme-color-border);
+  --color-ring: var(--theme-color-ring);
+
+  /* sidebar tokens */
+  --color-sidebar: var(--theme-color-panel);
+  --color-sidebar-foreground: var(--theme-color-text);
+  --color-sidebar-primary: var(--theme-color-accent);
+  --color-sidebar-primary-foreground: var(--theme-color-accent-foreground);
+  --color-sidebar-accent: var(--theme-color-panel-2);
+  --color-sidebar-accent-foreground: var(--theme-color-text);
+  --color-sidebar-border: var(--theme-color-border);
+  --color-sidebar-ring: var(--theme-color-ring);
+
+  /* Per-status tokens */
+  --color-status-backlog: var(--theme-color-status-backlog);
+  --color-status-todo: var(--theme-color-status-todo);
+  --color-status-queued: var(--theme-color-status-queued);
+  --color-status-doing: var(--theme-color-status-doing);
+  --color-status-review: var(--theme-color-status-review);
+  --color-status-done: var(--theme-color-status-done);
+  --color-status-blocked: var(--theme-color-status-blocked);
+  --color-status-paused: var(--theme-color-status-paused);
+  --color-status-archived: var(--theme-color-status-archived);
+  --color-status-inbox: var(--theme-color-status-inbox);
+  --color-status-routed: var(--theme-color-status-routed);
+  --color-status-indexed: var(--theme-color-status-indexed);
+
+  /* radius */
+  --radius: 0.375rem;
+  --radius-sm: calc(var(--radius) * 0.75);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) * 1.5);
+  --radius-xl: calc(var(--radius) * 2);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+    outline-color: var(--theme-color-ring-soft);
+  }
+
+  body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    letter-spacing: 0;
+    margin: 0;
+  }
+
+  table, code, pre {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    letter-spacing: 0;
+  }
+
+  /* Kill focus rings on interactive elements */
+  button:focus,
+  button:focus-visible,
+  [role="menuitem"]:focus,
+  [role="menuitem"]:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+}
+
+@layer components {
+  .hud-panel {
+    @apply rounded-md border bg-panel;
+    border-color: var(--color-border-strong);
+  }
+
+  .hud-input {
+    @apply w-full rounded-md border bg-panel px-3 py-2 text-[13px] leading-4 text-foreground outline-none transition;
+    border-color: var(--color-border-strong);
+  }
+  .hud-input:focus {
+    box-shadow: 0 0 0 2px var(--color-ring);
+  }
+
+  .hud-button {
+    @apply rounded-md border bg-panel px-3 py-2 text-[13px] leading-4 text-foreground transition hover:bg-panel-hover disabled:cursor-not-allowed disabled:opacity-60;
+    border-color: var(--color-border-strong);
+  }
+
+  .hud-label {
+    @apply text-[11px] uppercase tracking-[0.16em] text-text-subtle;
+  }
+
+  .hud-skeleton {
+    @apply animate-pulse rounded bg-panel-hover;
+  }
+
+  .hud-table {
+    @apply w-full border-collapse text-sm;
+  }
+
+  .hud-table thead tr {
+    @apply border-b border-border bg-panel-hover text-left text-[11px] uppercase tracking-[0.14em] text-text-subtle;
+  }
+
+  .hud-table tbody tr {
+    @apply border-b border-border-soft;
+  }
+
+  .hud-table-container {
+    @apply overflow-x-auto;
+  }
+
+  .hud-table td,
+  .hud-table-container td,
+  table td {
+    @apply whitespace-nowrap;
+  }
+
+  .no-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+  }
+
+  .hud-modal-overlay {
+    @apply fixed inset-0 z-50 grid place-items-center bg-overlay p-4;
+  }
+
+  .hud-modal {
+    @apply w-full max-w-[26rem] rounded-md border bg-panel p-4;
+    border-color: var(--color-border-strong);
+  }
+}
