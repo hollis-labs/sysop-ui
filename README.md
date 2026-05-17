@@ -16,9 +16,10 @@ Fragments Engine's Sysop).
 | --- | --- |
 | Theme | `theme.css` (4 palettes + tokens), `applyTheme`, `THEME_OPTIONS`, `ThemeSwitcher`, … |
 | Shell | `NavRail`, `PageHeader`, `SummaryCards`, `EmptyState`, `DetailDialog`/`DetailSection` |
-| Data table | `DataTable<T>` + `ColumnDef<T>` (sortable, windowed, selectable) |
-| Filters | `FilterBar` shell + `FilterSearchInput`, `FilterCycleToggle`, `FilterEntityCombobox` |
-| Primitives | `CopyableId`, `StatusBadge`, + shadcn `ui/` (table, button, badge, input, textarea, dialog, popover, command, input-group, scroll-area, tooltip, skeleton, sonner) |
+| Layout | `ListPageLayout`, `DetailPageLayout`, `DetailHeader`, `TabStrip`, `OperationsTablePage` preset, `CollapsibleSection` |
+| Data table | `DataTable<T>` + `ColumnDef<T>` (sortable, windowed, selectable), `RowActionMenu` |
+| Filters | `FilterBar` shell + `FilterSearchInput`, `FilterCycleToggle`, `FilterChipGroup`, `FilterEntityCombobox` |
+| Primitives | `CopyableId`, `StatusBadge`, `Pill`, `Combobox`, `MetaList`, `Metric`, `ProgressBar`, `JsonViewer`, `FormDialog`, `ConfirmDialog`, + shadcn `ui/` (table, button, badge, card, input, textarea, label, dialog, alert-dialog, dropdown-menu, popover, command, input-group, scroll-area, separator, switch, tabs, tooltip, skeleton, sonner) |
 | Hooks / API | `usePoll`, `createApiContext`, `createApiClient`, `normalizeKeys`, … |
 
 App-specific domain code (fragment/route/task models, app dialogs) is **not**
@@ -111,6 +112,26 @@ export function WidgetsPage({ widgets }: { widgets: Widget[] }) {
 }
 ```
 
+### Page layouts are full-bleed — chrome divides, content blocks frame
+
+Reach for a layout component instead of hand-assembling the skeleton:
+
+- `OperationsTablePage` — the whole list/operations page (header + summary +
+  filters + table) as one preset.
+- `ListPageLayout` / `DetailPageLayout` — slot-based shells for bespoke pages.
+
+These fill the viewport edge-to-edge. Their structure comes from the **pinned
+region dividers** — `PageHeader`, `SummaryCards`, `FilterBar`, and `TabStrip`
+each carry a bottom border — plus the `NavRail`'s edge. *That* is the frame.
+Do **not** wrap a layout, or the `DataTable` inside it, in a bordered panel:
+the scroll body and table sit flush, exactly as Torque's and Fragments
+Engine's `/operations` routes do.
+
+Borders belong to **content blocks** — a card, a callout, a grouped section
+*inside* the scroll body. Those opt in via the `hud-panel` class
+(`rounded-md border bg-panel`). Rule of thumb: page chrome *divides* with
+bottom borders; content blocks *frame* with `hud-panel`.
+
 For the API layer, build a concrete client on `createApiClient` and a typed
 context with `createApiContext`:
 
@@ -129,6 +150,7 @@ export const { ApiProvider, useApi } = createApiContext(apiClient)
 | Command | Purpose |
 | --- | --- |
 | `npm run build` | Type-check + emit `dist/` (ES module + `.d.ts`) |
+| `npm run demo` | Component gallery — every export, live theme switch (visual reference) |
 | `npm run typecheck` | Type-check only |
 | `npm run lint` | ESLint |
 | `npm test` | Vitest (watch) |

@@ -23,6 +23,11 @@ interface NavRailProps {
   logo?: ReactNode
   /** Tooltip for the brand mark. */
   logoLabel?: string
+  /**
+   * Custom node(s) pinned to the bottom of the rail, above any `footer` items
+   * — e.g. a `ThemeSwitcher`. Style triggers as `h-9 w-9` to match the rail.
+   */
+  footerExtra?: ReactNode
 }
 
 const ITEM_BASE =
@@ -57,7 +62,7 @@ function NavRailButton({ item }: { item: NavRailItem }) {
  * pass `href` for link items or `onSelect` for handler items, and compute
  * `active` from your router. Items flagged `footer` pin to the bottom.
  */
-export function NavRail({ items, logo, logoLabel = 'Home' }: NavRailProps) {
+export function NavRail({ items, logo, logoLabel = 'Home', footerExtra }: NavRailProps) {
   const primary = items.filter((i) => !i.footer)
   const footer = items.filter((i) => i.footer)
 
@@ -79,8 +84,9 @@ export function NavRail({ items, logo, logoLabel = 'Home' }: NavRailProps) {
         <NavRailButton key={item.key} item={item} />
       ))}
 
-      {footer.length > 0 && (
+      {(footerExtra || footer.length > 0) && (
         <div className="mt-auto flex flex-col items-center gap-2">
+          {footerExtra}
           {footer.map((item) => (
             <NavRailButton key={item.key} item={item} />
           ))}

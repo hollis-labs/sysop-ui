@@ -5,7 +5,11 @@ interface StatusBadgeProps {
   className?: string
 }
 
-/** Status pill — a dot + label, themed via the `--color-status-*` tokens. */
+/**
+ * Status pill — a dot + label in a tinted, bordered chip. Dimensions and
+ * shade relationships match Torque's status pills exactly; themed via the
+ * `--color-status-*` tokens.
+ */
 export function StatusBadge({ status, className = '' }: StatusBadgeProps) {
   const tone = statusTone(status)
 

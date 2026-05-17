@@ -1,4 +1,4 @@
-interface SummaryCard {
+export interface SummaryCard {
   label: string
   value: number | string
   subtitle?: string

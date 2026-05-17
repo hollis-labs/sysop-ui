@@ -1,4 +1,5 @@
 import { AlertCircle, Inbox, SearchX } from 'lucide-react'
+import { Button } from './ui/button'
 
 export type EmptyStateVariant = 'empty' | 'no-results' | 'error'
 
@@ -22,7 +23,10 @@ const ICONS: Record<EmptyStateVariant, React.ReactNode> = {
   error: <AlertCircle className="h-10 w-10 text-danger-soft" />,
 }
 
-/** Centered empty / no-results / error panel. */
+/**
+ * Centered empty / no-results / error panel. Borderless and compact — sits
+ * inside a page body or table region. Mirrors Torque's `EmptyState` sizing.
+ */
 export function EmptyState({
   variant,
   title,
@@ -32,29 +36,27 @@ export function EmptyState({
   command,
 }: EmptyStateProps) {
   return (
-    <section className="hud-panel px-6 py-16 text-center">
-      <div className="flex flex-col items-center justify-center gap-4">
-        {ICONS[variant]}
-        <div className="space-y-3">
-          {eyebrow ? (
-            <p className="text-xs font-semibold uppercase tracking-[0.32em] text-text-subtle">
-              {eyebrow}
-            </p>
-          ) : null}
-          <h2 className="text-2xl font-semibold tracking-tight text-foreground">{title}</h2>
-          <p className="mx-auto max-w-2xl text-sm leading-6 text-text-soft">{description}</p>
-        </div>
-        {command ? (
-          <pre className="w-full max-w-md overflow-x-auto rounded-md border border-border bg-panel px-4 py-3 text-left text-sm text-text-muted">
-            <code>{command}</code>
-          </pre>
+    <div className="flex flex-col items-center justify-center gap-3 py-16 text-center">
+      {ICONS[variant]}
+      <div className="space-y-1">
+        {eyebrow ? (
+          <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-text-subtle">
+            {eyebrow}
+          </p>
         ) : null}
-        {action ? (
-          <button type="button" onClick={action.onClick} className="hud-button px-4 py-2 text-sm">
-            {action.label}
-          </button>
-        ) : null}
+        <p className="text-sm font-medium text-foreground">{title}</p>
+        <p className="mx-auto max-w-md text-sm text-text-subtle">{description}</p>
       </div>
-    </section>
+      {command ? (
+        <pre className="mt-1 w-full max-w-md overflow-x-auto rounded-md border border-border bg-panel px-3 py-2 text-left text-xs text-text-muted">
+          <code>{command}</code>
+        </pre>
+      ) : null}
+      {action ? (
+        <Button variant="outline" size="sm" className="mt-1" onClick={action.onClick}>
+          {action.label}
+        </Button>
+      ) : null}
+    </div>
   )
 }

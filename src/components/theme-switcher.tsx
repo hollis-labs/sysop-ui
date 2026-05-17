@@ -1,13 +1,12 @@
 import { useState } from 'react'
-import { Check, Cog } from 'lucide-react'
+import { Check, Palette } from 'lucide-react'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { buttonVariants } from '@/components/ui/button'
 import { applyTheme, persistTheme, readStoredTheme, THEME_OPTIONS, type ThemeName } from '@/lib/theme'
-import { cn } from '@/lib/utils'
 
 /**
- * Palette switcher. Built on the Popover primitive (rather than a menu) so it
- * stays simple and reliable — the trigger is the gear in the app header.
+ * Palette switcher. Styled as a NavRail-sized icon button so it can sit in
+ * the rail's footer (above the Settings item). The trigger is a paint-palette
+ * icon — deliberately not a gear, which reads as Settings.
  */
 export default function ThemeSwitcher() {
   const [theme, setTheme] = useState<ThemeName>(() => readStoredTheme())
@@ -23,12 +22,13 @@ export default function ThemeSwitcher() {
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger
-        aria-label="Theme settings"
-        className={cn(buttonVariants({ variant: 'ghost', size: 'icon' }), 'rounded-full')}
+        aria-label="Theme"
+        title="Theme"
+        className="flex h-9 w-9 items-center justify-center rounded-md text-text-subtle transition-colors hover:bg-panel-hover hover:text-foreground"
       >
-        <Cog className="h-4 w-4" />
+        <Palette className="h-4 w-4" />
       </PopoverTrigger>
-      <PopoverContent align="end" className="w-56 p-1">
+      <PopoverContent side="right" align="end" className="w-56 p-1">
         <p className="px-2 py-1.5 text-[10px] font-semibold uppercase tracking-[.2em] text-text-subtle">
           Palette
         </p>

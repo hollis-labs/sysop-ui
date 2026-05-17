@@ -11,7 +11,10 @@ describe('StatusBadge', () => {
   it('applies the themed status tone for a known status', () => {
     const { getByText } = render(<StatusBadge status="blocked" />)
     const badge = getByText('blocked').closest('span')?.parentElement
-    expect(badge?.className).toContain('text-status-blocked')
+    // The label is derived from the status token via color-mix; the fill and
+    // border use the token directly.
+    expect(badge?.className).toContain('--color-status-blocked')
+    expect(badge?.className).toContain('bg-status-blocked/10')
     expect(badge?.className).toContain('border-status-blocked/40')
   })
 

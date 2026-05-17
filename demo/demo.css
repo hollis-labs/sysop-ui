@@ -1,0 +1,9 @@
+/*
+ * Demo stylesheet. Pulls in the canonical theme (which itself imports
+ * Tailwind), then points Tailwind's content scanner at both the kit source
+ * and the demo files so utility classes in either are generated.
+ */
+@import "../src/styles/theme.css";
+
+@source "../src/**/*.{ts,tsx}";
+@source "./**/*.{ts,tsx,html}";
