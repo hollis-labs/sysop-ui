@@ -309,6 +309,22 @@
     margin: 0;
   }
 
+  /* Document-shell lock. The Sysop shell (NavRail + PageHeader) is fixed
+     chrome; scrolling happens inside page regions, never on <body>. Without
+     this, the document grows past the viewport and the whole shell scrolls.
+     Every consuming app was re-deriving this reset by hand — it belongs here.
+     Assumes the SPA mounts into `#root` (the Hollis Labs app convention). */
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body,
+  #root {
+    overflow: hidden;
+  }
+
   table, code, pre {
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     letter-spacing: 0;

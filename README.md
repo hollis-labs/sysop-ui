@@ -73,6 +73,11 @@ The kit's components rely on the theme's semantic Tailwind tokens
 (`bg-panel`, `text-text-subtle`, `border-border-strong`, `text-status-*`, …),
 so the consuming app's Tailwind build must process `theme.css`.
 
+`theme.css` also locks the document shell — `html`, `body`, and `#root` are
+pinned to the viewport with overflow disabled, so the fixed NavRail + PageHeader
+chrome never scrolls. Apps mount into `#root` and let page regions scroll
+internally; no per-app `index.css` reset is needed.
+
 ## Adding a page to an app
 
 A page is generic kit chrome + app-specific content:
