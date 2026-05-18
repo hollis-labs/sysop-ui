@@ -1,5 +1,5 @@
 import type { ReactNode, RefObject } from 'react'
-import { cn } from '@/lib/utils'
+import { cn } from '../../lib/utils'
 
 interface DetailPageLayoutProps {
   /** Pinned detail header — typically a `<DetailHeader>`. */

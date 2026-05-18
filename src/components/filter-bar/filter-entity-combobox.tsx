@@ -7,9 +7,9 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from '@/components/ui/command'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { ScrollArea } from '@/components/ui/scroll-area'
+} from '../ui/command'
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover'
+import { ScrollArea } from '../ui/scroll-area'
 
 export interface FilterEntityComboboxItem {
   id: string

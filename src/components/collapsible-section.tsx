@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from 'react'
 import { ChevronRight } from 'lucide-react'
-import { cn } from '@/lib/utils'
+import { cn } from '../lib/utils'
 
 export type SectionAccent = 'blue' | 'violet' | 'amber' | 'red' | 'green' | 'neutral'
 

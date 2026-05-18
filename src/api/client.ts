@@ -1,4 +1,4 @@
-import type { JsonObject } from '@/lib/json'
+import type { JsonObject } from '../lib/json'
 
 /**
  * API client scaffold — a thin, typed `fetch` wrapper. Apps build their

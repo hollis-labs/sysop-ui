@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils'
+import { cn } from '../../lib/utils'
 
 /** One labeled row in a {@link BarMeter}. */
 export interface BarMeterRow {

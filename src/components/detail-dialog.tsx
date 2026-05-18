@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogTitle } from './ui/dialog'
 
 interface DetailDialogProps {
   /** The dialog is open whenever this is true. */

@@ -1,5 +1,5 @@
 import { useMemo, type ReactNode } from 'react'
-import { cn } from '@/lib/utils'
+import { cn } from '../lib/utils'
 
 interface JsonViewerProps {
   /** Any JSON-serializable value. */

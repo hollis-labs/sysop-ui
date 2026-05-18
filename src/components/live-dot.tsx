@@ -1,5 +1,5 @@
-import { cn } from '@/lib/utils'
-import type { PillTone } from '@/components/pill'
+import { cn } from '../lib/utils'
+import type { PillTone } from './pill'
 
 const DOT_COLORS: Record<PillTone, string> = {
   neutral: 'bg-text-subtle',

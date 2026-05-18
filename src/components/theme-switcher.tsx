@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Check, Palette } from 'lucide-react'
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
-import { applyTheme, persistTheme, readStoredTheme, THEME_OPTIONS, type ThemeName } from '@/lib/theme'
+import { Popover, PopoverContent, PopoverTrigger } from './ui/popover'
+import { applyTheme, persistTheme, readStoredTheme, THEME_OPTIONS, type ThemeName } from '../lib/theme'
 
 /**
  * Palette switcher. Styled as a NavRail-sized icon button so it can sit in

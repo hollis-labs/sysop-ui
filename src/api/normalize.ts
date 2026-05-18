@@ -1,4 +1,4 @@
-import type { JsonObject } from '@/lib/json'
+import type { JsonObject } from '../lib/json'
 
 /**
  * Normalize scaffold — generic helpers for turning loosely-typed API payloads

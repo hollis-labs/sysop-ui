@@ -1,4 +1,4 @@
-import { statusTone } from '@/lib/status'
+import { statusTone } from '../lib/status'
 
 interface StatusBadgeProps {
   status: string

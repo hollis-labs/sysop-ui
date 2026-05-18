@@ -1,8 +1,8 @@
 import type { ComponentProps } from 'react'
 import { Check, Copy } from 'lucide-react'
 
-import { Button } from '@/components/ui/button'
-import { useCopy } from '@/hooks/use-copy'
+import { Button } from './ui/button'
+import { useCopy } from '../hooks/use-copy'
 
 interface CopyButtonProps
   extends Omit<ComponentProps<typeof Button>, 'onClick' | 'children'> {

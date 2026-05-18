@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils'
+import { cn } from '../../lib/utils'
 
 /** One slice of a {@link DonutChart}. */
 export interface DonutSegment {

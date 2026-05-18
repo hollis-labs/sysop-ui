@@ -1,4 +1,4 @@
-import { createScopedStorage } from '@/lib/storage'
+import { createScopedStorage } from './storage'
 
 export interface ListCursor<F> {
   /** Ordered ids of the list as the user last saw it. */

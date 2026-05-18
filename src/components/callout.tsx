@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { AlertCircle, AlertTriangle, CircleCheck, Info } from 'lucide-react'
-import { cn } from '@/lib/utils'
-import type { PillTone } from '@/components/pill'
+import { cn } from '../lib/utils'
+import type { PillTone } from './pill'
 
 const TONE_CLASSES: Record<PillTone, string> = {
   neutral: 'border-border bg-panel-2 text-text-soft',
