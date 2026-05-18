@@ -35,6 +35,8 @@ export default defineConfig({
         id.startsWith('react/') ||
         id.startsWith('react-dom/') ||
         id.startsWith('@base-ui/') ||
+        id === 'recharts' ||
+        id.startsWith('recharts/') ||
         ['clsx', 'tailwind-merge', 'class-variance-authority', 'lucide-react', 'cmdk', 'sonner'].includes(id),
       output: {
         preserveModules: true,

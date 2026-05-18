@@ -19,11 +19,18 @@ Fragments Engine's Sysop).
 | Layout | `ListPageLayout`, `DetailPageLayout`, `DetailHeader`, `TabStrip`, `OperationsTablePage` preset, `CollapsibleSection` |
 | Data table | `DataTable<T>` + `ColumnDef<T>` (sortable, windowed, selectable), `RowActionMenu` |
 | Filters | `FilterBar` shell + `FilterSearchInput`, `FilterCycleToggle`, `FilterChipGroup`, `FilterEntityCombobox` |
-| Primitives | `CopyableId`, `CopyButton`, `StatusBadge`, `Pill`, `Combobox`, `MetaList`, `Metric`, `ProgressBar`, `JsonViewer`, `FormDialog`, `ConfirmDialog`, + shadcn `ui/` (table, button, badge, card, input, textarea, label, dialog, alert-dialog, dropdown-menu, popover, command, input-group, scroll-area, select, separator, sheet, switch, tabs, tooltip, skeleton, sonner) |
-| Hooks / API | `usePoll`, `useCopy`, `createApiContext`, `createApiClient`, `normalizeKeys`, … |
+| Primitives | `CopyableId`, `CopyButton`, `StatusBadge`, `Pill`, `LiveDot`, `Callout`, `Combobox`, `MetaList`, `Metric`, `ProgressBar` (`indeterminate`), `JsonViewer`, `FormDialog`, `ConfirmDialog`, + shadcn `ui/` (table, button, badge, card, input, textarea, label, dialog, alert-dialog, dropdown-menu, popover, command, input-group, scroll-area, select, separator, sheet, switch, tabs, tooltip, skeleton, sonner) |
+| Widgets | `TimeSeriesChart` (stacked bar/area, day-bucketed), `DonutChart`, `BarMeter`, `ActivityHeatmap` (calendar heatmap), `HourlyPulse` (last-24h strip), `RecentList` |
+| Hooks / API | `usePoll`, `useCopy`, `useElapsed` (seconds-elapsed ticker), `createApiContext`, `createApiClient`, `normalizeKeys`, … |
+| Storage / cursor | `createScopedStorage` (namespaced, fault-tolerant `localStorage`), `createListCursor` + `listCursorNeighbors` (list-cursor pagination — prev/next neighbors) |
 
 App-specific domain code (fragment/route/task models, app dialogs) is **not**
 in the kit — it stays in each app. The kit is the generic shell.
+
+The dashboard widgets pull in **`recharts`** (a bundled dependency) — it backs
+`TimeSeriesChart`'s stacked bar/area rendering. The other widgets
+(`DonutChart`, `BarMeter`, `ActivityHeatmap`, `HourlyPulse`, `RecentList`) are
+dependency-free hand-rolled SVG/markup.
 
 ## Consuming the kit
 

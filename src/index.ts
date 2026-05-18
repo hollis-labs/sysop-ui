@@ -28,6 +28,19 @@ export {
   type StatusTone,
 } from './lib/status'
 export type { ISODateString, JsonPrimitive, JsonValue, JsonObject } from './lib/json'
+export {
+  createScopedStorage,
+  type StorageArea,
+  type ScopedStorage,
+  type ScopedStorageOptions,
+} from './lib/storage'
+export {
+  createListCursor,
+  listCursorNeighbors,
+  type ListCursor,
+  type ListCursorNeighbors,
+  type ListCursorHandle,
+} from './lib/list-cursor'
 
 /* ---- api scaffold ---- */
 export {
@@ -52,6 +65,7 @@ export {
 /* ---- hooks + context ---- */
 export { usePoll, refreshPolledData, type UsePollResult, type PollFetcher } from './hooks/use-poll'
 export { useCopy, type UseCopyResult } from './hooks/use-copy'
+export { useElapsed } from './hooks/use-elapsed'
 export { createApiContext, type ApiContextHandle } from './contexts/api-context'
 
 /* ---- layout ---- */
@@ -77,6 +91,8 @@ export { JsonViewer } from './components/json-viewer'
 export { MetaList, type MetaItem } from './components/meta-list'
 export { Metric } from './components/metric'
 export { Pill, type PillTone } from './components/pill'
+export { LiveDot } from './components/live-dot'
+export { Callout } from './components/callout'
 export { CollapsibleSection, type SectionAccent } from './components/collapsible-section'
 export { ProgressBar } from './components/progress-bar'
 export { RowActionMenu, type RowAction } from './components/row-action-menu'
@@ -104,6 +120,25 @@ export {
   type SortDir,
   type SortState,
 } from './components/data-table'
+
+/* ---- widgets ---- */
+export {
+  TimeSeriesChart,
+  type TimeSeriesChartProps,
+  type TimeSeriesSeries,
+  DonutChart,
+  type DonutChartProps,
+  type DonutSegment,
+  BarMeter,
+  type BarMeterProps,
+  type BarMeterRow,
+  ActivityHeatmap,
+  type ActivityHeatmapProps,
+  HourlyPulse,
+  type HourlyPulseProps,
+  RecentList,
+  type RecentListProps,
+} from './components/widgets'
 
 /* ---- shadcn ui primitives ---- */
 export * from './components/ui/alert-dialog'

@@ -410,3 +410,14 @@
     border-color: var(--color-border-strong);
   }
 }
+
+/* Indeterminate ProgressBar — a one-third-width fill sweeping across the
+   track. Defined here so the kit's ProgressBar can reference it by name. */
+@keyframes sysop-progress-indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(400%);
+  }
+}

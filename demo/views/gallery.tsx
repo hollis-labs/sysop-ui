@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from 'react'
 import { ExternalLink, Trash2 } from 'lucide-react'
 import {
+  ActivityHeatmap,
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -11,7 +12,9 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
   Badge,
+  BarMeter,
   Button,
+  Callout,
   Card,
   CardContent,
   CardDescription,
@@ -25,19 +28,23 @@ import {
   DataTable,
   DetailDialog,
   DetailSection,
+  DonutChart,
   EmptyState,
   FilterBar,
   FilterChipGroup,
   FilterCycleToggle,
   FormDialog,
+  HourlyPulse,
   Input,
   JsonViewer,
+  LiveDot,
   MetaList,
   Metric,
   PageHeader,
   Pill,
   PriorityBadge,
   ProgressBar,
+  RecentList,
   RowActionMenu,
   Select,
   SelectContent,
@@ -56,6 +63,7 @@ import {
   Switch,
   TabStrip,
   Textarea,
+  TimeSeriesChart,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
@@ -123,6 +131,72 @@ const STATUS_CHIPS: FilterChip[] = ['doing', 'review', 'done', 'blocked'].map((s
   const tone = statusTone(status)
   return { value: status, activeClassName: `${tone.border} ${tone.bg} ${tone.text}` }
 })
+
+/* ---- sample events — timestamped, for the chart / heatmap / pulse widgets ---- */
+
+interface GalleryEvent {
+  id: string
+  status: 'success' | 'error' | 'running'
+  startedAt: string
+}
+
+const EVENT_STATUSES: GalleryEvent['status'][] = ['success', 'success', 'success', 'error', 'running']
+
+const GALLERY_EVENTS: GalleryEvent[] = (() => {
+  const now = Date.now()
+  const out: GalleryEvent[] = []
+  for (let i = 0; i < 40; i++) {
+    // spread across the last ~16 days, with a cluster in the last 24h
+    const daysAgo = i < 8 ? 0 : ((i * 7) % 16)
+    const hoursOffset = (i * 5) % 24
+    const minutesOffset = (i * 17) % 60
+    const ts = new Date(
+      now - daysAgo * 24 * 60 * 60 * 1000 - hoursOffset * 60 * 60 * 1000 - minutesOffset * 60 * 1000,
+    )
+    out.push({
+      id: `evt_${String(i).padStart(3, '0')}`,
+      status: EVENT_STATUSES[i % EVENT_STATUSES.length],
+      startedAt: ts.toISOString(),
+    })
+  }
+  return out
+})()
+
+const EVENT_SERIES = [
+  {
+    key: 'success',
+    label: 'Success',
+    color: 'var(--color-status-done)',
+    value: (e: GalleryEvent) => (e.status === 'success' ? 1 : 0),
+  },
+  {
+    key: 'error',
+    label: 'Error',
+    color: 'var(--color-status-blocked)',
+    value: (e: GalleryEvent) => (e.status === 'error' ? 1 : 0),
+  },
+  {
+    key: 'running',
+    label: 'Running',
+    color: 'var(--color-status-doing)',
+    value: (e: GalleryEvent) => (e.status === 'running' ? 1 : 0),
+  },
+]
+
+function eventDonutSegments() {
+  const count = (s: GalleryEvent['status']) => GALLERY_EVENTS.filter((e) => e.status === s).length
+  return [
+    { key: 'success', label: 'Success', color: 'var(--color-status-done)', value: count('success') },
+    { key: 'error', label: 'Error', color: 'var(--color-status-blocked)', value: count('error') },
+    { key: 'running', label: 'Running', color: 'var(--color-status-doing)', value: count('running') },
+  ]
+}
+
+const EVENT_TONE: Record<GalleryEvent['status'], 'success' | 'danger' | 'warning'> = {
+  success: 'success',
+  error: 'danger',
+  running: 'warning',
+}
 
 /* ---- layout helper ---- */
 
@@ -230,6 +304,44 @@ export function GalleryView() {
             <Pill tone="info" dot>
               pending
             </Pill>
+          </div>
+        </Section>
+
+        <Section title="LiveDot" note="pulsing live / running indicator">
+          <div className="flex flex-wrap items-center gap-5">
+            <LiveDot label="running" />
+            <LiveDot tone="success" label="healthy" />
+            <LiveDot tone="danger" label="failing" />
+            <LiveDot tone="info" label="pending" />
+            <LiveDot tone="neutral" label="idle" />
+            <LiveDot tone="success" size="md" label="healthy (md)" />
+            <LiveDot tone="success" pulsing={false} label="static" />
+          </div>
+        </Section>
+
+        <Section title="Callout" note="tone-colored alert box — all tones">
+          <div className="space-y-3">
+            <Callout>The default info callout — a tone-colored notice with an icon.</Callout>
+            <Callout tone="success" title="Deployed">
+              The service rolled out cleanly across all regions.
+            </Callout>
+            <Callout tone="warning" title="Degraded">
+              Latency is elevated in eu-west-1.
+            </Callout>
+            <Callout tone="neutral" icon={null}>
+              A neutral callout with the icon omitted.
+            </Callout>
+            <Callout
+              tone="danger"
+              title="Blocked"
+              actions={
+                <Button size="sm" variant="outline">
+                  Retry
+                </Button>
+              }
+            >
+              billing-worker failed its last health check.
+            </Callout>
           </div>
         </Section>
 
@@ -465,11 +577,12 @@ export function GalleryView() {
           </div>
         </Section>
 
-        <Section title="ProgressBar">
+        <Section title="ProgressBar" note="determinate · indeterminate">
           <div className="max-w-md space-y-3">
             <ProgressBar value={28} />
             <ProgressBar value={64} />
             <ProgressBar value={92} className="h-2" />
+            <ProgressBar indeterminate />
           </div>
         </Section>
 
@@ -599,6 +712,75 @@ export function GalleryView() {
             description="This permanently removes it. This cannot be undone."
             confirmLabel="Delete"
             onConfirm={() => setConfirmOpen(false)}
+          />
+        </Section>
+
+        <Section title="TimeSeriesChart" note="stacked, day-bucketed — bar & area">
+          <div className="grid gap-6 lg:grid-cols-2">
+            <TimeSeriesChart
+              items={GALLERY_EVENTS}
+              date={(e) => e.startedAt}
+              series={EVENT_SERIES}
+              kind="bar"
+              days={16}
+              title="Events"
+            />
+            <TimeSeriesChart
+              items={GALLERY_EVENTS}
+              date={(e) => e.startedAt}
+              series={EVENT_SERIES}
+              kind="area"
+              days={16}
+              title="Events"
+            />
+          </div>
+        </Section>
+
+        <Section title="DonutChart" note="SVG donut with legend">
+          <DonutChart
+            segments={eventDonutSegments()}
+            title="Events by status"
+            centerLabel="events"
+          />
+        </Section>
+
+        <Section title="BarMeter" note="horizontal labeled bars">
+          <BarMeter
+            title="Events by status"
+            rows={eventDonutSegments().map((s) => ({
+              key: s.key,
+              label: s.label,
+              value: s.value,
+              color: s.color,
+            }))}
+          />
+        </Section>
+
+        <Section title="ActivityHeatmap" note="GitHub-style calendar heatmap">
+          <ActivityHeatmap items={GALLERY_EVENTS} date={(e) => e.startedAt} weekCount={12} />
+        </Section>
+
+        <Section title="HourlyPulse" note="last-24h hourly bar strip">
+          <HourlyPulse items={GALLERY_EVENTS} timestamp={(e) => e.startedAt} title="Event pulse" />
+        </Section>
+
+        <Section title="RecentList" note="recent-items list shell">
+          <RecentList
+            items={[...GALLERY_EVENTS].sort((a, b) => b.startedAt.localeCompare(a.startedAt))}
+            getKey={(e) => e.id}
+            title="Recent events"
+            limit={6}
+            renderItem={(e) => (
+              <div className="flex items-center justify-between gap-3 px-1 py-2">
+                <span className="flex items-center gap-2">
+                  <LiveDot tone={EVENT_TONE[e.status]} pulsing={e.status === 'running'} />
+                  <span className="font-mono text-[12px] text-text-soft">{e.id}</span>
+                </span>
+                <Pill tone={EVENT_TONE[e.status]} dot>
+                  {e.status}
+                </Pill>
+              </div>
+            )}
           />
         </Section>
       </div>
