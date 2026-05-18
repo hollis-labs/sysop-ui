@@ -1,6 +1,15 @@
 import { useState, type ReactNode } from 'react'
 import { ExternalLink, Trash2 } from 'lucide-react'
 import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
   Badge,
   Button,
   Card,
@@ -12,6 +21,7 @@ import {
   Combobox,
   ConfirmDialog,
   CopyableId,
+  CopyButton,
   DataTable,
   DetailDialog,
   DetailSection,
@@ -29,6 +39,17 @@ import {
   PriorityBadge,
   ProgressBar,
   RowActionMenu,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
   Skeleton,
   StatusBadge,
   SummaryCards,
@@ -131,6 +152,9 @@ export function GalleryView() {
   const [chips, setChips] = useState<string[]>(['doing'])
   const [confirmOpen, setConfirmOpen] = useState(false)
   const [switchOn, setSwitchOn] = useState(true)
+  const [selectValue, setSelectValue] = useState<string | null>(null)
+  const [sheetOpen, setSheetOpen] = useState(false)
+  const [alertOpen, setAlertOpen] = useState(false)
 
   return (
     <div className="flex h-full flex-col">
@@ -175,13 +199,15 @@ export function GalleryView() {
           </div>
         </Section>
 
-        <Section title="Badges · CopyableId · Tooltip">
+        <Section title="Badges · CopyableId · CopyButton · Tooltip">
           <div className="flex flex-wrap items-center gap-3">
             <Badge>Badge</Badge>
             <Badge variant="secondary">Secondary</Badge>
             <Badge variant="outline">Outline</Badge>
             <CopyableId id="svc_e5f6a7b8" />
             <CopyableId id="svc_e5f6a7b8" label="copy short id" />
+            <CopyButton text="svc_e5f6a7b8" />
+            <CopyButton text="svc_e5f6a7b8" label="Copy id" variant="ghost" />
             <Tooltip>
               <TooltipTrigger render={<Button variant="outline">Hover me</Button>} />
               <TooltipContent>Tooltip content</TooltipContent>
@@ -466,6 +492,61 @@ export function GalleryView() {
             <Switch checked={switchOn} onCheckedChange={setSwitchOn} />
             <span className="text-[13px] text-text-soft">{switchOn ? 'On' : 'Off'}</span>
           </div>
+        </Section>
+
+        <Section title="Select" note="single-select dropdown">
+          <div className="flex flex-wrap items-center gap-3">
+            <Select value={selectValue} onValueChange={setSelectValue}>
+              <SelectTrigger className="w-48">
+                <SelectValue placeholder="Pick a region" />
+              </SelectTrigger>
+              <SelectContent>
+                {REGIONS.map((r) => (
+                  <SelectItem key={r.value} value={r.value}>
+                    {r.label}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <span className="text-[11px] text-text-subtle">selected: {selectValue ?? '—'}</span>
+          </div>
+        </Section>
+
+        <Section title="Sheet" note="side-panel drawer">
+          <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
+            <SheetTrigger render={<Button variant="outline">Open sheet</Button>} />
+            <SheetContent>
+              <SheetHeader>
+                <SheetTitle>auth-service</SheetTitle>
+                <SheetDescription>
+                  A right-anchored drawer for detail panels and side content.
+                </SheetDescription>
+              </SheetHeader>
+              <div className="px-4 text-[13px] text-text-soft">
+                Region us-east-1 · uptime 99.999%
+              </div>
+            </SheetContent>
+          </Sheet>
+        </Section>
+
+        <Section title="AlertDialog" note="destructive confirmation">
+          <AlertDialog open={alertOpen} onOpenChange={setAlertOpen}>
+            <AlertDialogTrigger render={<Button variant="destructive">Delete service</Button>} />
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Delete this service?</AlertDialogTitle>
+                <AlertDialogDescription>
+                  This permanently removes the service. This cannot be undone.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction variant="destructive" onClick={() => setAlertOpen(false)}>
+                  Delete
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </Section>
 
         <Section title="Card" note="bordered content block — not page chrome">

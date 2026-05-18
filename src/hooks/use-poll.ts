@@ -32,15 +32,18 @@ export function refreshPolledData() {
 /**
  * Poll an async fetcher on an interval, pausing while the tab is hidden and
  * aborting in-flight requests on unmount / re-fetch. `intervalMs <= 0`
- * disables the interval (fetch-once).
+ * disables the interval (fetch-once). `enabled = false` pauses polling
+ * entirely — no fetch-on-mount, no interval — and resumes (with an immediate
+ * fetch) when it flips back to true.
  */
 export function usePoll<TData>(
   fetcher: PollFetcher<TData>,
   intervalMs = DEFAULT_INTERVAL_MS,
+  enabled = true,
 ): UsePollResult<TData> {
   const [data, setData] = useState<TData | null>(null)
   const [error, setError] = useState<unknown>(null)
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(enabled)
 
   const isMountedRef = useRef(true)
   const intervalRef = useRef<number | null>(null)
@@ -51,6 +54,7 @@ export function usePoll<TData>(
   // the polling callbacks below stay referentially stable.
   const fetcherRef = useRef(fetcher)
   const intervalMsRef = useRef(intervalMs)
+  const enabledRef = useRef(enabled)
   const runFetchRef = useRef<((showLoading: boolean) => Promise<void>) | null>(null)
 
   const clearScheduledPoll = useCallback(() => {
@@ -62,7 +66,7 @@ export function usePoll<TData>(
 
   const scheduleNextPoll = useCallback(() => {
     clearScheduledPoll()
-    if (document.hidden || intervalMsRef.current <= 0) {
+    if (document.hidden || intervalMsRef.current <= 0 || !enabledRef.current) {
       return
     }
     intervalRef.current = window.setTimeout(() => {
@@ -72,6 +76,9 @@ export function usePoll<TData>(
 
   const runFetch = useCallback(
     async (showLoading: boolean) => {
+      if (!enabledRef.current) {
+        return
+      }
       abortControllerRef.current?.abort()
       const controller = new AbortController()
       abortControllerRef.current = controller
@@ -107,24 +114,34 @@ export function usePoll<TData>(
   useEffect(() => {
     fetcherRef.current = fetcher
     intervalMsRef.current = intervalMs
+    enabledRef.current = enabled
     runFetchRef.current = runFetch
   })
 
   useEffect(() => {
     isMountedRef.current = true
-    // Fetch-on-mount. `runFetch(false)` performs no synchronous setState — its
-    // setData/setError/setIsLoading calls all happen after an `await`, which
-    // the rule permits; the linter just can't trace the async boundary through
-    // a useCallback.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    void runFetch(false)
-
     return () => {
       isMountedRef.current = false
       clearScheduledPoll()
       abortControllerRef.current?.abort()
     }
-  }, [runFetch, clearScheduledPoll])
+  }, [clearScheduledPoll])
+
+  // Fetch-on-mount and react to `enabled`: an immediate fetch when enabled
+  // (or re-enabled), a clean stop when disabled. `enabledRef` is synced in a
+  // separate effect, so set it eagerly here too — this effect can run first.
+  useEffect(() => {
+    enabledRef.current = enabled
+    if (enabled) {
+      // `runFetch` performs no synchronous setState — its setData/setError/
+      // setIsLoading calls all happen after an `await`.
+      void runFetch(dataRef.current === null)
+    } else {
+      clearScheduledPoll()
+      abortControllerRef.current?.abort()
+      setIsLoading(false)
+    }
+  }, [enabled, runFetch, clearScheduledPoll])
 
   useEffect(() => {
     return subscribeToRefresh(() => {

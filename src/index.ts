@@ -51,6 +51,7 @@ export {
 
 /* ---- hooks + context ---- */
 export { usePoll, refreshPolledData, type UsePollResult, type PollFetcher } from './hooks/use-poll'
+export { useCopy, type UseCopyResult } from './hooks/use-copy'
 export { createApiContext, type ApiContextHandle } from './contexts/api-context'
 
 /* ---- layout ---- */
@@ -67,6 +68,7 @@ export {
 export { PageHeader } from './components/page-header'
 export { NavRail, type NavRailItem } from './components/nav-rail'
 export { CopyableId } from './components/copyable-id'
+export { CopyButton } from './components/copy-button'
 export { StatusBadge } from './components/status-badge'
 export { PriorityBadge } from './components/priority-badge'
 export { Combobox, type ComboboxItem } from './components/combobox'
@@ -104,6 +106,7 @@ export {
 } from './components/data-table'
 
 /* ---- shadcn ui primitives ---- */
+export * from './components/ui/alert-dialog'
 export * from './components/ui/badge'
 export * from './components/ui/button'
 export * from './components/ui/card'
@@ -115,7 +118,9 @@ export * from './components/ui/input-group'
 export * from './components/ui/label'
 export * from './components/ui/popover'
 export * from './components/ui/scroll-area'
+export * from './components/ui/select'
 export * from './components/ui/separator'
+export * from './components/ui/sheet'
 export * from './components/ui/skeleton'
 export * from './components/ui/sonner'
 export * from './components/ui/switch'

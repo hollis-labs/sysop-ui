@@ -19,8 +19,8 @@ Fragments Engine's Sysop).
 | Layout | `ListPageLayout`, `DetailPageLayout`, `DetailHeader`, `TabStrip`, `OperationsTablePage` preset, `CollapsibleSection` |
 | Data table | `DataTable<T>` + `ColumnDef<T>` (sortable, windowed, selectable), `RowActionMenu` |
 | Filters | `FilterBar` shell + `FilterSearchInput`, `FilterCycleToggle`, `FilterChipGroup`, `FilterEntityCombobox` |
-| Primitives | `CopyableId`, `StatusBadge`, `Pill`, `Combobox`, `MetaList`, `Metric`, `ProgressBar`, `JsonViewer`, `FormDialog`, `ConfirmDialog`, + shadcn `ui/` (table, button, badge, card, input, textarea, label, dialog, alert-dialog, dropdown-menu, popover, command, input-group, scroll-area, separator, switch, tabs, tooltip, skeleton, sonner) |
-| Hooks / API | `usePoll`, `createApiContext`, `createApiClient`, `normalizeKeys`, … |
+| Primitives | `CopyableId`, `CopyButton`, `StatusBadge`, `Pill`, `Combobox`, `MetaList`, `Metric`, `ProgressBar`, `JsonViewer`, `FormDialog`, `ConfirmDialog`, + shadcn `ui/` (table, button, badge, card, input, textarea, label, dialog, alert-dialog, dropdown-menu, popover, command, input-group, scroll-area, select, separator, sheet, switch, tabs, tooltip, skeleton, sonner) |
+| Hooks / API | `usePoll`, `useCopy`, `createApiContext`, `createApiClient`, `normalizeKeys`, … |
 
 App-specific domain code (fragment/route/task models, app dialogs) is **not**
 in the kit — it stays in each app. The kit is the generic shell.

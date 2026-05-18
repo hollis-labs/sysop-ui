@@ -43,9 +43,17 @@ function DialogContent({
   className,
   children,
   showCloseButton = true,
+  widthClassName,
   ...props
 }: DialogPrimitive.Popup.Props & {
   showCloseButton?: boolean
+  /**
+   * Overrides the default responsive max-width (`max-w-[calc(100%-2rem)]
+   * sm:max-w-sm`). Pass e.g. `max-w-3xl` for a wider dialog — set it here
+   * rather than via `className`, where the `sm:`-prefixed default would
+   * otherwise win at the `sm` breakpoint.
+   */
+  widthClassName?: string
 }) {
   return (
     <DialogPortal>
@@ -58,7 +66,8 @@ function DialogContent({
           <DialogPrimitive.Popup
             data-slot="dialog-content"
             className={cn(
-              "pointer-events-auto relative w-full max-w-[calc(100%-2rem)] rounded-md border border-border-strong bg-panel p-4 text-sm text-popover-foreground duration-100 outline-none sm:max-w-sm data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+              "pointer-events-auto relative w-full rounded-md border border-border-strong bg-panel p-4 text-sm text-popover-foreground duration-100 outline-none data-open:animate-in data-open:fade-in-0 data-open:zoom-in-95 data-closed:animate-out data-closed:fade-out-0 data-closed:zoom-out-95",
+              widthClassName ?? "max-w-[calc(100%-2rem)] sm:max-w-sm",
               className
             )}
             {...props}
