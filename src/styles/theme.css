@@ -297,6 +297,17 @@
   * {
     border-color: var(--color-border);
     outline-color: var(--theme-color-ring-soft);
+    /* Hide scrollbars app-wide — regions still scroll, the bar is just
+       never painted. Firefox / legacy-Edge. */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  /* WebKit / Blink — Chrome, Safari, Electron, Wails. */
+  *::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
   }
 
   body {
