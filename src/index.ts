@@ -6,7 +6,8 @@
  */
 
 /* ---- lib ---- */
-export { cn, formatRelativeTime, formatShortDate, formatCount } from './lib/utils'
+export { cn, formatRelativeTime, formatShortDate, formatCount, formatDuration } from './lib/utils'
+export { notifyError, notifySuccess } from './lib/toast'
 export {
   THEME_STORAGE_KEY,
   DEFAULT_THEME,
@@ -66,6 +67,8 @@ export {
 export { usePoll, refreshPolledData, type UsePollResult, type PollFetcher } from './hooks/use-poll'
 export { useCopy, type UseCopyResult } from './hooks/use-copy'
 export { useElapsed } from './hooks/use-elapsed'
+export { useArrowNav } from './hooks/use-arrow-nav'
+export { useSSE, type SSEMessage, type UseSSEOptions, type UseSSEResult } from './hooks/use-sse'
 export { createApiContext, type ApiContextHandle } from './contexts/api-context'
 
 /* ---- layout ---- */
@@ -145,6 +148,7 @@ export * from './components/ui/alert-dialog'
 export * from './components/ui/badge'
 export * from './components/ui/button'
 export * from './components/ui/card'
+export * from './components/ui/checkbox'
 export * from './components/ui/command'
 export * from './components/ui/dialog'
 export * from './components/ui/dropdown-menu'

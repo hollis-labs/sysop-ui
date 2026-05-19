@@ -34,3 +34,17 @@ export function formatCount(n: number): string {
   if (n < 1_000_000) return `${(n / 1000).toFixed(1)}k`
   return `${(n / 1_000_000).toFixed(1)}M`
 }
+
+/**
+ * Format a duration in seconds as a compact human string — `45s`, `2m 05s`,
+ * `1h 03m`. Negative input clamps to 0.
+ */
+export function formatDuration(seconds: number): string {
+  const total = Math.max(0, Math.floor(seconds))
+  if (total < 60) return `${total}s`
+  const m = Math.floor(total / 60)
+  const s = total % 60
+  if (m < 60) return `${m}m ${String(s).padStart(2, '0')}s`
+  const h = Math.floor(m / 60)
+  return `${h}h ${String(m % 60).padStart(2, '0')}m`
+}

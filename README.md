@@ -19,9 +19,10 @@ Fragments Engine's Sysop).
 | Layout | `ListPageLayout`, `DetailPageLayout`, `DetailHeader`, `TabStrip`, `OperationsTablePage` preset, `CollapsibleSection` |
 | Data table | `DataTable<T>` + `ColumnDef<T>` (sortable, windowed, selectable), `RowActionMenu` |
 | Filters | `FilterBar` shell + `FilterSearchInput`, `FilterCycleToggle`, `FilterChipGroup`, `FilterEntityCombobox` |
-| Primitives | `CopyableId`, `CopyButton`, `StatusBadge`, `Pill`, `LiveDot`, `Callout`, `Combobox`, `MetaList`, `Metric`, `ProgressBar` (`indeterminate`), `JsonViewer`, `FormDialog`, `ConfirmDialog`, + shadcn `ui/` (table, button, badge, card, input, textarea, label, dialog, alert-dialog, dropdown-menu, popover, command, input-group, scroll-area, select, separator, sheet, switch, tabs, tooltip, skeleton, sonner) |
+| Primitives | `CopyableId`, `CopyButton`, `StatusBadge`, `Pill`, `LiveDot`, `Callout`, `Combobox`, `MetaList`, `Metric`, `ProgressBar` (`indeterminate`), `JsonViewer`, `FormDialog`, `ConfirmDialog`, + shadcn `ui/` (table, button, badge, card, checkbox, input, textarea, label, dialog, alert-dialog, dropdown-menu, popover, command, input-group, scroll-area, select, separator, sheet, switch, tabs, tooltip, skeleton, sonner) |
 | Widgets | `TimeSeriesChart` (stacked bar/area, day-bucketed), `DonutChart`, `BarMeter`, `ActivityHeatmap` (calendar heatmap), `HourlyPulse` (last-24h strip), `RecentList` |
-| Hooks / API | `usePoll`, `useCopy`, `useElapsed` (seconds-elapsed ticker), `createApiContext`, `createApiClient`, `normalizeKeys`, … |
+| Hooks / API | `usePoll`, `useCopy`, `useElapsed` (seconds-elapsed ticker), `useArrowNav` (window ←/→ nav), `useSSE` (`EventSource` subscription), `createApiContext`, `createApiClient`, `normalizeKeys`, … |
+| Utils / toasts | `formatDuration` (seconds → `1h 03m`), `formatRelativeTime`, `formatShortDate`, `formatCount`, `notifySuccess` / `notifyError` (`sonner` toast helpers — mount a `<Toaster />`) |
 | Storage / cursor | `createScopedStorage` (namespaced, fault-tolerant `localStorage`), `createListCursor` + `listCursorNeighbors` (list-cursor pagination — prev/next neighbors) |
 
 App-specific domain code (fragment/route/task models, app dialogs) is **not**

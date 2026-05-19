@@ -20,6 +20,7 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
+  Checkbox,
   CollapsibleSection,
   Combobox,
   ConfirmDialog,
@@ -67,6 +68,8 @@ import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
+  notifyError,
+  notifySuccess,
   statusTone,
   STATUS_KEYS,
   type ColumnDef,
@@ -226,6 +229,7 @@ export function GalleryView() {
   const [chips, setChips] = useState<string[]>(['doing'])
   const [confirmOpen, setConfirmOpen] = useState(false)
   const [switchOn, setSwitchOn] = useState(true)
+  const [checkboxOn, setCheckboxOn] = useState(true)
   const [selectValue, setSelectValue] = useState<string | null>(null)
   const [sheetOpen, setSheetOpen] = useState(false)
   const [alertOpen, setAlertOpen] = useState(false)
@@ -604,6 +608,36 @@ export function GalleryView() {
           <div className="flex items-center gap-3">
             <Switch checked={switchOn} onCheckedChange={setSwitchOn} />
             <span className="text-[13px] text-text-soft">{switchOn ? 'On' : 'Off'}</span>
+          </div>
+        </Section>
+
+        <Section title="Checkbox" note="unchecked · checked · indeterminate · disabled">
+          <div className="flex flex-wrap items-center gap-6">
+            <Checkbox />
+            <label className="flex items-center gap-2 text-[13px] text-text-soft">
+              <Checkbox checked={checkboxOn} onCheckedChange={setCheckboxOn} />
+              Notify on failure
+            </label>
+            <Checkbox indeterminate />
+            <Checkbox disabled />
+            <Checkbox checked disabled />
+          </div>
+        </Section>
+
+        <Section title="Toasts" note="notifySuccess · notifyError — needs a <Toaster /> mounted">
+          <div className="flex flex-wrap items-center gap-2">
+            <Button variant="outline" onClick={() => notifySuccess('Service restarted')}>
+              Success toast
+            </Button>
+            <Button
+              variant="outline"
+              onClick={() => notifyError(new Error('Health check failed'), 'Something went wrong')}
+            >
+              Error toast
+            </Button>
+            <span className="text-[11px] text-text-subtle">
+              the demo App mounts a single &lt;Toaster /&gt; for these to render
+            </span>
           </div>
         </Section>
 

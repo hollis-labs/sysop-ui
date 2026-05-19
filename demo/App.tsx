@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { LayoutGrid, LayoutList, Server, Settings } from 'lucide-react'
-import { NavRail, ThemeSwitcher, TooltipProvider, type NavRailItem } from '../src'
+import { NavRail, ThemeSwitcher, Toaster, TooltipProvider, type NavRailItem } from '../src'
 import { GalleryView } from './views/gallery'
 import { OperationsView } from './views/operations'
 import { SettingsView } from './views/settings'
@@ -67,6 +67,7 @@ export function App() {
           {view === 'settings' ? <SettingsView /> : null}
         </div>
       </div>
+      <Toaster />
     </TooltipProvider>
   )
 }
