@@ -18,6 +18,8 @@ interface ConfirmDialogProps {
   destructive?: boolean
   /** A confirm is in flight — disables both buttons. */
   busy?: boolean
+  /** Override the dialog width. Height remains fixed at 450px. */
+  widthClassName?: string
 }
 
 /**
@@ -35,19 +37,25 @@ export function ConfirmDialog({
   cancelLabel = 'Cancel',
   destructive = true,
   busy,
+  widthClassName,
 }: ConfirmDialogProps) {
   return (
     <Dialog open={open} onOpenChange={(next: boolean) => !next && onOpenChange(false)}>
-      <DialogContent className="flex flex-col gap-0 p-0">
-        <div className="flex flex-col gap-1 px-4 pb-3 pr-10 pt-4">
+      <DialogContent
+        className="flex h-[450px] max-h-[calc(100vh-2rem)] flex-col gap-0 overflow-hidden p-0"
+        widthClassName={widthClassName ?? 'w-[600px] max-w-[calc(100vw-2rem)]'}
+      >
+        <div className="flex h-20 shrink-0 flex-col justify-center gap-1 pr-10 pl-4">
           <DialogTitle className="text-base font-semibold leading-snug tracking-tight text-text">
             {title}
           </DialogTitle>
+        </div>
+        <div className="min-h-0 flex-1 overflow-y-auto border-t border-border-strong px-4 py-3">
           {description ? (
-            <p className="text-[12px] leading-snug text-text-subtle">{description}</p>
+            <p className="text-[12px] leading-5 text-text-subtle">{description}</p>
           ) : null}
         </div>
-        <div className="flex items-center justify-end gap-2 border-t border-border-strong px-4 py-3">
+        <div className="flex h-14 shrink-0 items-center justify-end gap-2 border-t border-border-strong px-4">
           <Button variant="ghost" onClick={() => onOpenChange(false)} disabled={busy}>
             {cancelLabel}
           </Button>

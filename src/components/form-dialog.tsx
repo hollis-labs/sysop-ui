@@ -19,7 +19,7 @@ interface FormDialogProps {
   submitting?: boolean
   /** Form fields. */
   children: ReactNode
-  /** Override the max-width (default `max-w-md`). */
+  /** Override the dialog width. Height remains fixed at 450px. */
   widthClassName?: string
 }
 
@@ -39,12 +39,13 @@ export function FormDialog({
   submitDisabled,
   submitting,
   children,
-  widthClassName = 'max-w-md',
+  widthClassName,
 }: FormDialogProps) {
   return (
     <Dialog open={open} onOpenChange={(next: boolean) => !next && onClose()}>
       <DialogContent
-        className={`flex max-h-[85vh] flex-col gap-0 overflow-hidden p-0 ${widthClassName}`}
+        className="flex h-[450px] max-h-[calc(100vh-2rem)] flex-col gap-0 overflow-hidden p-0"
+        widthClassName={widthClassName ?? 'w-[600px] max-w-[calc(100vw-2rem)]'}
       >
         <form
           onSubmit={(e) => {
@@ -53,7 +54,7 @@ export function FormDialog({
           }}
           className="flex min-h-0 flex-1 flex-col"
         >
-          <div className="flex flex-col gap-1 px-4 pb-3 pr-10 pt-4">
+          <div className="flex h-20 shrink-0 flex-col justify-center gap-1 pr-10 pl-4">
             <DialogTitle className="text-base font-semibold leading-snug tracking-tight text-text">
               {title}
             </DialogTitle>
@@ -66,7 +67,7 @@ export function FormDialog({
             {children}
           </div>
 
-          <div className="flex items-center justify-end gap-2 border-t border-border-strong px-4 py-3">
+          <div className="flex h-14 shrink-0 items-center justify-end gap-2 border-t border-border-strong px-4">
             <Button type="button" variant="ghost" onClick={onClose} disabled={submitting}>
               {cancelLabel}
             </Button>

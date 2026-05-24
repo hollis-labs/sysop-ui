@@ -14,7 +14,7 @@ interface DetailDialogProps {
   footer?: ReactNode
   /** Scrollable body. Compose `DetailSection`s here. */
   children: ReactNode
-  /** Override the max-width (default `max-w-2xl`). */
+  /** Override the dialog width. Height remains fixed at 450px. */
   widthClassName?: string
 }
 
@@ -31,15 +31,16 @@ export function DetailDialog({
   meta,
   footer,
   children,
-  widthClassName = 'max-w-2xl',
+  widthClassName,
 }: DetailDialogProps) {
   return (
     <Dialog open={open} onOpenChange={(next: boolean) => !next && onClose()}>
       <DialogContent
-        className={`flex max-h-[85vh] flex-col gap-0 overflow-hidden p-0 ${widthClassName}`}
+        className="flex h-[450px] max-h-[calc(100vh-2rem)] flex-col gap-0 overflow-hidden p-0"
+        widthClassName={widthClassName ?? 'w-[600px] max-w-[calc(100vw-2rem)]'}
       >
-        <div className="flex flex-col gap-2 px-4 pb-3 pr-10 pt-4">
-          <div className="flex items-start gap-2">
+        <div className="flex h-20 shrink-0 flex-col justify-center gap-1.5 px-4 pr-10">
+          <div className="flex min-h-0 items-start gap-2">
             {badge ? <span className="mt-0.5 shrink-0">{badge}</span> : null}
             <DialogTitle className="line-clamp-2 min-w-0 break-words text-base font-semibold leading-snug tracking-tight text-text">
               {title}
@@ -55,7 +56,7 @@ export function DetailDialog({
         <div className="min-h-0 flex-1 overflow-y-auto">{children}</div>
 
         {footer ? (
-          <div className="flex items-center justify-end gap-2 border-t border-border-strong px-4 py-3">
+          <div className="flex h-14 shrink-0 items-center justify-end gap-2 border-t border-border-strong px-4">
             {footer}
           </div>
         ) : null}
