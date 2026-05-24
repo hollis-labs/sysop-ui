@@ -63,25 +63,19 @@ Recommended rule:
 
 ## Consuming the kit
 
-The package is npm-publishable but there is no private registry yet, so apps
-depend on it as a **git dependency**, with a **`file:` link for local dev**.
+Install from the public npm registry:
 
 ### In an app
 
-```jsonc
-// package.json
-"dependencies": {
-  "@hollis-labs/sysop-ui": "github:hollis-labs/sysop-ui#v0.7.1"
-}
+```bash
+npm install @hollis-labs/sysop-ui
 ```
 
-**Pin a release tag, not `#main`.** Git dependencies have no semver
-resolution — the ref is exact — so tracking `#main` means every `npm install`
-can silently pull a different build. Depend on the current tag (`#v0.7.1`)
-and bump it deliberately when adopting a new release.
+If you need an explicit version, pin a published tag:
 
-The `prepare` script builds `dist/` automatically on install, so a git
-dependency works without extra steps.
+```bash
+npm install @hollis-labs/sysop-ui@0.7.2
+```
 
 ### Local development
 
