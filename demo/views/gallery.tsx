@@ -1,5 +1,5 @@
 import { useState, type ReactNode } from 'react'
-import { ExternalLink, Trash2 } from 'lucide-react'
+import { ExternalLink, Server, Trash2 } from 'lucide-react'
 import {
   ActivityHeatmap,
   AlertDialog,
@@ -52,6 +52,9 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  SettingsField,
+  SettingsGrid,
+  SettingsPanel,
   Sheet,
   SheetContent,
   SheetDescription,
@@ -291,6 +294,23 @@ export function GalleryView() {
               <TooltipContent>Tooltip content</TooltipContent>
             </Tooltip>
           </div>
+        </Section>
+
+        <Section title="Settings panel" note="SettingsPanel · SettingsGrid · SettingsField">
+          <SettingsPanel title="Runtime" icon={<Server className="h-3.5 w-3.5" />}>
+            <SettingsGrid>
+              <SettingsField label="HTTP addr">127.0.0.1:5173</SettingsField>
+              <SettingsField label="Catalog root">
+                <CopyableId
+                  id="/Users/example/.hollis/catalog"
+                  label="/Users/example/.hollis/catalog"
+                />
+              </SettingsField>
+              <SettingsField label="State">
+                <Pill tone="success">running</Pill>
+              </SettingsField>
+            </SettingsGrid>
+          </SettingsPanel>
         </Section>
 
         <Section title="Pill" note="mini status chip — all tones">

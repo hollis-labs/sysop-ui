@@ -101,6 +101,14 @@ export { ProgressBar } from './components/progress-bar'
 export { RowActionMenu, type RowAction } from './components/row-action-menu'
 export { ConfirmDialog } from './components/confirm-dialog'
 export { SummaryCards, type SummaryCard } from './components/summary-cards'
+export {
+  SettingsField,
+  SettingsGrid,
+  SettingsPanel,
+  type SettingsFieldProps,
+  type SettingsGridProps,
+  type SettingsPanelProps,
+} from './components/settings-panel'
 export { EmptyState, type EmptyStateVariant } from './components/empty-state'
 export { DetailDialog, DetailSection } from './components/detail-dialog'
 export { default as ThemeSwitcher } from './components/theme-switcher'
