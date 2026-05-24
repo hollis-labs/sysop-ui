@@ -71,13 +71,13 @@ depend on it as a **git dependency**, with a **`file:` link for local dev**.
 ```jsonc
 // package.json
 "dependencies": {
-  "@hollis-labs/sysop-ui": "github:hollis-labs/sysop-ui#v0.7.0"
+  "@hollis-labs/sysop-ui": "github:hollis-labs/sysop-ui#v0.7.1"
 }
 ```
 
 **Pin a release tag, not `#main`.** Git dependencies have no semver
 resolution — the ref is exact — so tracking `#main` means every `npm install`
-can silently pull a different build. Depend on the current tag (`#v0.7.0`)
+can silently pull a different build. Depend on the current tag (`#v0.7.1`)
 and bump it deliberately when adopting a new release.
 
 The `prepare` script builds `dist/` automatically on install, so a git
