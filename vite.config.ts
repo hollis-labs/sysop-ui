@@ -25,7 +25,15 @@ export default defineConfig({
   },
   build: {
     lib: {
-      entry: path.resolve(__dirname, 'src/index.ts'),
+      entry: {
+        index: path.resolve(__dirname, 'src/index.ts'),
+        ui: path.resolve(__dirname, 'src/ui.ts'),
+        api: path.resolve(__dirname, 'src/api.ts'),
+        layout: path.resolve(__dirname, 'src/layout.ts'),
+        data: path.resolve(__dirname, 'src/data.ts'),
+        widgets: path.resolve(__dirname, 'src/widgets.ts'),
+        charts: path.resolve(__dirname, 'src/charts.ts'),
+      },
       formats: ['es'],
     },
     rollupOptions: {

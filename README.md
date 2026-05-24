@@ -33,6 +33,34 @@ The dashboard widgets pull in **`recharts`** (a bundled dependency) — it backs
 (`DonutChart`, `BarMeter`, `ActivityHeatmap`, `HourlyPulse`, `RecentList`) are
 dependency-free hand-rolled SVG/markup.
 
+## Import surfaces
+
+The root entrypoint is intentionally narrow and mirrors `ui`:
+
+```ts
+import { Button, PageHeader, applyTheme } from '@hollis-labs/sysop-ui'
+```
+
+Optional domains live behind explicit subpaths:
+
+| Entry | Use for |
+| --- | --- |
+| `@hollis-labs/sysop-ui/ui` | Theme helpers, shell chrome, formatters, visual primitives, shadcn `ui/*` |
+| `@hollis-labs/sysop-ui/api` | API client/context helpers, normalizers, polling/SSE hooks, storage/list cursor helpers |
+| `@hollis-labs/sysop-ui/layout` | Page skeletons such as `ListPageLayout`, `DetailPageLayout`, `TabStrip` |
+| `@hollis-labs/sysop-ui/data` | `DataTable`, `RowActionMenu`, filter-bar pieces |
+| `@hollis-labs/sysop-ui/widgets` | Lightweight SVG/markup widgets that do not use `recharts` |
+| `@hollis-labs/sysop-ui/charts` | `TimeSeriesChart` and any future charting components backed by `recharts` |
+
+Recommended rule:
+
+- treat the root entrypoint as `ui`
+- import app transport/client plumbing from `api`
+- import page layouts from `layout`
+- import table/filter features from `data`
+- import `charts` only inside pages that actually render charts
+- import `widgets` explicitly for dashboard-only SVG widgets
+
 ## Consuming the kit
 
 The package is npm-publishable but there is no private registry yet, so apps
@@ -43,13 +71,13 @@ depend on it as a **git dependency**, with a **`file:` link for local dev**.
 ```jsonc
 // package.json
 "dependencies": {
-  "@hollis-labs/sysop-ui": "github:hollis-labs/sysop-ui#v0.1.0"
+  "@hollis-labs/sysop-ui": "github:hollis-labs/sysop-ui#v0.7.0"
 }
 ```
 
 **Pin a release tag, not `#main`.** Git dependencies have no semver
 resolution — the ref is exact — so tracking `#main` means every `npm install`
-can silently pull a different build. Depend on the current tag (`#v0.1.0`)
+can silently pull a different build. Depend on the current tag (`#v0.7.0`)
 and bump it deliberately when adopting a new release.
 
 The `prepare` script builds `dist/` automatically on install, so a git
@@ -74,7 +102,7 @@ Run `npm run build` in `libs/sysop-ui` after changes (or `npm run build --
 import '@hollis-labs/sysop-ui/theme.css'
 
 // 2. Apply the persisted palette before first paint
-import { applyTheme, getInitialTheme } from '@hollis-labs/sysop-ui'
+import { applyTheme, getInitialTheme } from '@hollis-labs/sysop-ui/ui'
 applyTheme(getInitialTheme())
 ```
 
@@ -87,15 +115,49 @@ pinned to the viewport with overflow disabled, so the fixed NavRail + PageHeader
 chrome never scrolls. Apps mount into `#root` and let page regions scroll
 internally; no per-app `index.css` reset is needed.
 
-## Adding a page to an app
+## App structure
+
+Default Sysop app shape:
+
+- eager shell: nav, page header, providers, theme boot, route state
+- lazy routes: each page loaded through `React.lazy(() => import('./pages/...'))`
+- page-local feature code: charts, dialogs, tables, and heavy inspectors stay with the page that uses them
+- shared shell imports: `ui` and `layout`
+- transport/client imports: `api`
+- optional heavy domains: `charts` only where needed
+
+Minimal shell example:
+
+```tsx
+import { Suspense, lazy } from 'react'
+import { NavRail, PageHeader } from '@hollis-labs/sysop-ui/ui'
+
+const OperationsPage = lazy(() =>
+  import('./pages/operations').then((module) => ({ default: module.OperationsPage })),
+)
+
+export function AppShell() {
+  return (
+    <>
+      <NavRail items={[]} />
+      <PageHeader title="Operations" />
+      <Suspense fallback={<div>Loading...</div>}>
+        <OperationsPage />
+      </Suspense>
+    </>
+  )
+}
+```
+
+## Adding a page
 
 A page is generic kit chrome + app-specific content:
 
 ```tsx
 import {
-  PageHeader, SummaryCards, DataTable, EmptyState,
-  type ColumnDef,
-} from '@hollis-labs/sysop-ui'
+  PageHeader, SummaryCards, EmptyState, StatusBadge,
+} from '@hollis-labs/sysop-ui/ui'
+import { DataTable, type ColumnDef } from '@hollis-labs/sysop-ui/data'
 
 interface Widget { id: string; name: string; status: string }
 
@@ -144,7 +206,7 @@ For the API layer, build a concrete client on `createApiClient` and a typed
 context with `createApiContext`:
 
 ```ts
-import { createApiClient, createApiContext } from '@hollis-labs/sysop-ui'
+import { createApiClient, createApiContext } from '@hollis-labs/sysop-ui/api'
 
 const http = createApiClient({ baseUrl: '' })
 export const apiClient = {
@@ -152,6 +214,21 @@ export const apiClient = {
 }
 export const { ApiProvider, useApi } = createApiContext(apiClient)
 ```
+
+## Bundle inspection
+
+Use route-level lazy imports first. If a Sysop app still has a large initial
+chunk, inspect the app build rather than guessing:
+
+```bash
+npm run analyze
+```
+
+Questions to answer in the report:
+
+- which modules are in the entry chunk
+- which pages moved into route chunks after `React.lazy`
+- whether `recharts` appears only in the page chunks that import `@hollis-labs/sysop-ui/charts`
 
 ## Scripts
 
