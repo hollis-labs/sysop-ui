@@ -34,6 +34,16 @@ export { PriorityBadge } from './components/priority-badge'
 export { Combobox, type ComboboxItem } from './components/combobox'
 export { FormDialog } from './components/form-dialog'
 export { JsonViewer } from './components/json-viewer'
+export {
+  JsonModal,
+  PayloadActions,
+  PayloadSummary,
+  safeParseObject,
+  scalarStr,
+  type JsonModalProps,
+  type PayloadActionsProps,
+  type PayloadSummaryProps,
+} from './components/json-payload'
 export { MetaList, type MetaItem } from './components/meta-list'
 export { Metric } from './components/metric'
 export { Pill, type PillTone } from './components/pill'
@@ -46,10 +56,14 @@ export { SummaryCards, type SummaryCard } from './components/summary-cards'
 export {
   SettingsField,
   SettingsGrid,
+  SettingsNotice,
   SettingsPanel,
+  SettingsStatusPill,
   type SettingsFieldProps,
   type SettingsGridProps,
+  type SettingsNoticeProps,
   type SettingsPanelProps,
+  type SettingsStatusPillProps,
 } from './components/settings-panel'
 export { EmptyState, type EmptyStateVariant } from './components/empty-state'
 export { DetailDialog, DetailSection } from './components/detail-dialog'

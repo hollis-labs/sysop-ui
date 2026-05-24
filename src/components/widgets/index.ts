@@ -7,6 +7,10 @@ export {
   type TimeSeriesChartProps,
   type TimeSeriesSeries,
 } from './time-series-chart'
+export { Sparkbars, type SparkbarsProps } from './sparkbars'
+export { SignalBars, type SignalBarsProps } from './signal-bars'
+export { BarList, type BarListItem, type BarListProps } from './bar-list'
+export { CompositionBars, type CompositionBarsProps } from './composition-bars'
 export { DonutChart, type DonutChartProps, type DonutSegment } from './donut-chart'
 export { BarMeter, type BarMeterProps, type BarMeterRow } from './bar-meter'
 export { ActivityHeatmap, type ActivityHeatmapProps } from './activity-heatmap'
