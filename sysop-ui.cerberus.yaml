@@ -2,40 +2,44 @@ kind: cerberus-project/v1
 owner: sysop-ui
 namespace: local
 project:
-    id: sysop-ui
-    name: Sysop UI
+  id: sysop-ui
+  name: Sysop UI
 resources:
-    - id: sysop-ui-dev
-      name: Sysop UI Dev
-      type: process
-      project: sysop-ui
-      connector: local
-      config:
-        auto_restart: false
-        auto_start: false
-        build:
+  - id: sysop-ui-dev
+    name: Sysop UI Dev
+    type: process
+    project: sysop-ui
+    connector: local
+    config:
+      auto_restart: false
+      auto_start: false
+      build_strategy:
+        kind: legacy_command
+        rules:
+          command:
             - npm
             - run
             - demo:build
-        command:
-            - npm
-            - run
-            - demo
-            - --
-            - --host
-            - 127.0.0.1
-            - --port
-            - "5181"
-            - --strictPort
-        dir: /Users/chrispian/dev/hollis-labs/libs/sysop-ui
-        mode: dev_session
-        port: 5181
-        run_from: workspace
-        url: http://127.0.0.1:5181
-      tags:
-        - frontend
-        - vite
+      command:
+        - npm
+        - run
         - demo
-        - dev
-        - workspace
-        - v2
+        - --
+        - --host
+        - 127.0.0.1
+        - --port
+        - "5181"
+        - --strictPort
+      dir: /Users/chrispian/dev/hollis-labs/libs/sysop-ui
+      mode: dev_session
+      port: 5181
+      run_from: workspace
+      url: http://127.0.0.1:5181
+    tags:
+      - frontend
+      - vite
+      - demo
+      - dev
+      - workspace
+      - v2
+registry_urn: msg://agent/agent-mux/prj_sh0if096ti
