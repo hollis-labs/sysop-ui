@@ -7,3 +7,8 @@
 
 @source "../src/**/*.{ts,tsx}";
 @source "./**/*.{ts,tsx,html}";
+
+html, body, #root {
+  height: 100%;
+  overflow: hidden;
+}

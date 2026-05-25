@@ -1,7 +1,5 @@
 import {
   CopyableId,
-  DetailHeader,
-  DetailPageLayout,
   DetailSection,
   EmptyState,
   JsonViewer,
@@ -10,6 +8,7 @@ import {
   PriorityBadge,
   formatRelativeTime,
 } from '../../src'
+import { DetailHeader, DetailPageLayout } from '../../src/layout'
 import { getTask } from '../fixtures/tasks'
 
 /**

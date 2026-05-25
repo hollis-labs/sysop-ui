@@ -35,3 +35,4 @@ export {
 export { usePoll, refreshPolledData, type UsePollResult, type PollFetcher } from './hooks/use-poll'
 export { useSSE, type SSEMessage, type UseSSEOptions, type UseSSEResult } from './hooks/use-sse'
 export { createApiContext, type ApiContextHandle } from './contexts/api-context'
+export { createRouter, type RouterConfig } from './lib/router'

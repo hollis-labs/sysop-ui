@@ -7,3 +7,10 @@ export { BarMeter, type BarMeterProps, type BarMeterRow } from './components/wid
 export { ActivityHeatmap, type ActivityHeatmapProps } from './components/widgets/activity-heatmap'
 export { HourlyPulse, type HourlyPulseProps } from './components/widgets/hourly-pulse'
 export { RecentList, type RecentListProps } from './components/widgets/recent-list'
+export {
+  Panel, type PanelProps,
+  Kpi, type KpiProps,
+  KpiGrid, type KpiGridProps,
+  MiniTrend, type MiniTrendProps,
+  IntelligenceRow, type IntelligenceRowProps,
+} from './components/widgets/overview-panels'

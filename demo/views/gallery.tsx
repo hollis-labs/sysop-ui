@@ -1,7 +1,6 @@
 import { useState, type ReactNode } from 'react'
 import { ExternalLink, Server, Trash2 } from 'lucide-react'
 import {
-  ActivityHeatmap,
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -12,7 +11,6 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
   Badge,
-  BarMeter,
   Button,
   Callout,
   Card,
@@ -26,16 +24,10 @@ import {
   ConfirmDialog,
   CopyableId,
   CopyButton,
-  DataTable,
   DetailDialog,
   DetailSection,
-  DonutChart,
   EmptyState,
-  FilterBar,
-  FilterChipGroup,
-  FilterCycleToggle,
   FormDialog,
-  HourlyPulse,
   Input,
   JsonViewer,
   LiveDot,
@@ -45,8 +37,6 @@ import {
   Pill,
   PriorityBadge,
   ProgressBar,
-  RecentList,
-  RowActionMenu,
   Select,
   SelectContent,
   SelectItem,
@@ -65,9 +55,7 @@ import {
   StatusBadge,
   SummaryCards,
   Switch,
-  TabStrip,
   Textarea,
-  TimeSeriesChart,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
@@ -75,12 +63,27 @@ import {
   notifySuccess,
   statusTone,
   STATUS_KEYS,
-  type ColumnDef,
   type ComboboxItem,
+} from '../../src'
+import {
+  ActivityHeatmap,
+  BarMeter,
+  DonutChart,
+  HourlyPulse,
+  RecentList,
+} from '../../src/widgets'
+import { TimeSeriesChart } from '../../src/charts'
+import {
+  DataTable,
+  FilterBar,
+  FilterChipGroup,
+  FilterCycleToggle,
+  RowActionMenu,
+  type ColumnDef,
   type CycleOption,
   type FilterChip,
-  type TabStripItem,
-} from '../../src'
+} from '../../src/data'
+import { TabStrip, type TabStripItem } from '../../src/layout'
 
 /* ---- sample data ---- */
 
@@ -773,7 +776,7 @@ export function GalleryView() {
           <div className="grid gap-6 lg:grid-cols-2">
             <TimeSeriesChart
               items={GALLERY_EVENTS}
-              date={(e) => e.startedAt}
+              date={(e: GalleryEvent) => e.startedAt}
               series={EVENT_SERIES}
               kind="bar"
               days={16}
@@ -781,7 +784,7 @@ export function GalleryView() {
             />
             <TimeSeriesChart
               items={GALLERY_EVENTS}
-              date={(e) => e.startedAt}
+              date={(e: GalleryEvent) => e.startedAt}
               series={EVENT_SERIES}
               kind="area"
               days={16}

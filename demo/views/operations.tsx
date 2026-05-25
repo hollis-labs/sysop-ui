@@ -5,16 +5,18 @@ import {
   ConfirmDialog,
   CopyableId,
   EmptyState,
-  FilterChipGroup,
-  OperationsTablePage,
   PriorityBadge,
-  RowActionMenu,
   StatusBadge,
   formatRelativeTime,
   statusTone,
+} from '../../src'
+import {
+  FilterChipGroup,
+  RowActionMenu,
   type ColumnDef,
   type FilterChip,
-} from '../../src'
+} from '../../src/data'
+import { OperationsTablePage } from '../../src/layout'
 import { TASKS, type DemoTask } from '../fixtures/tasks'
 
 /**
