@@ -32,6 +32,7 @@ export { CopyButton } from './components/copy-button'
 export { StatusBadge } from './components/status-badge'
 export { PriorityBadge } from './components/priority-badge'
 export { Combobox, type ComboboxItem } from './components/combobox'
+export { TransferList, type TransferListItem } from './components/transfer-list'
 export { FormDialog } from './components/form-dialog'
 export { JsonViewer } from './components/json-viewer'
 export {
