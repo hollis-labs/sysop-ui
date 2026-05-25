@@ -1,6 +1,6 @@
 {
   "name": "@hollis-labs/sysop-ui",
-  "version": "0.7.2",
+  "version": "0.8.0",
   "description": "Sysop UI — the System Operations React kit + canonical [data-theme] palette for Hollis Labs apps.",
   "keywords": [
     "react",
