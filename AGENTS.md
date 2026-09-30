@@ -51,7 +51,7 @@ portfolio, and `theme.css` ships as raw CSS the app imports once. Apps converge
 on it; the older hand-rolled HUD CSS is retired. Do not fork palette decisions
 into a consumer.
 
-This package is published to npm and consumed by Cerberus and Tether — one via
-a local file link, one via a version pin (see the roadmap's table). A change to
-an export's name or shape is a downstream break even when this repo's own build
-is green.
+This package is published to npm and consumed by downstream apps, some via a
+version pin and some via a local file link (see the roadmap's table). A change
+to an export's name or shape is a downstream break even when this repo's own
+build is green.
