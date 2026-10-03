@@ -1,5 +1,16 @@
 # @hollis-labs/sysop-ui
 
+> ## ⚠️ DEPRECATED — scheduled for removal
+>
+> `@hollis-labs/sysop-ui` is deprecated and will be removed once GUI vNext is
+> ready. There is no removal date. **Do not start new work on it.** Use
+> [`@hollis-labs/kit-dashboard`](https://github.com/hollis-labs/design-kit/tree/main/packages/kit-dashboard)
+> from [design-kit](https://github.com/hollis-labs/design-kit) instead.
+> Existing installs keep working until removal.
+>
+> See [docs/DEPRECATION.md](./docs/DEPRECATION.md) for the status, the removal
+> plan and the remaining consumers.
+
 **Sysop UI** — the System Operations React kit. A shared package of generic
 shell components, shadcn/ui primitives, the canonical `[data-theme]` palette,
 and data hooks, extracted from the most-evolved app frontends (Torque's GUI and
@@ -62,6 +73,10 @@ Recommended rule:
 - import `widgets` explicitly for dashboard-only SVG widgets
 
 ## Consuming the kit
+
+> **Deprecated.** The instructions below are for existing consumers only. New
+> projects should use [`@hollis-labs/kit-dashboard`](https://github.com/hollis-labs/design-kit/tree/main/packages/kit-dashboard)
+> (see the notice at the top of this file).
 
 Install from the public npm registry:
 
