@@ -1,5 +1,10 @@
 # sysop-ui
 
+> **Status: DEPRECATED, pending removal.** Do not add features or start new
+> consumers; the replacement is `@hollis-labs/kit-dashboard` in
+> [design-kit](https://github.com/hollis-labs/design-kit). Details and the
+> remaining consumers are in `docs/DEPRECATION.md`.
+
 `@hollis-labs/sysop-ui` — the System Operations React kit: generic shell
 components, shadcn/ui primitives, the canonical `[data-theme]` palette, layout
 presets, `DataTable`, filters, widgets, charts and data hooks. It is the

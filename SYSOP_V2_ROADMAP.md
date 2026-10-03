@@ -1,5 +1,12 @@
 # Sysop UI v2 Roadmap
 
+> **DEPRECATED — historical document.** `@hollis-labs/sysop-ui` is deprecated and
+> scheduled for removal (no date; once GUI vNext is ready), so the v2 iteration
+> described below is not planned in this repository. The dashboard kit now lives
+> in [`@hollis-labs/kit-dashboard`](https://github.com/hollis-labs/design-kit/tree/main/packages/kit-dashboard).
+> See [docs/DEPRECATION.md](./docs/DEPRECATION.md). The text below is kept for
+> history and has not been updated.
+
 Tracking doc for the next major iteration of `@hollis-labs/sysop-ui`. Goal: consolidate diverging patterns from all downstream apps, add missing primitives, and ship example implementations so humans and agents have a canonical starting point.
 
 ---

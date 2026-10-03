@@ -11,6 +11,14 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and
 - Project AGENTS.md added and later genericized for outside readers; `CLAUDE.md`
   removed.
 
+### Deprecated
+
+- The package is deprecated and scheduled for removal once GUI vNext is ready (no
+  date). DEPRECATED banners now sit at the top of `README.md`, `SYSOP_V2_ROADMAP.md`
+  and `AGENTS.md`, and the new `docs/DEPRECATION.md` records the status, the
+  replacement (`@hollis-labs/kit-dashboard`), the removal plan and the nine
+  remaining consumers. Documentation only: no code, version or publish change.
+
 ## [0.9.0] - 2026-05-25
 
 ### Added
